@@ -51,6 +51,103 @@
 
 namespace pressio{ namespace containers{ namespace expressions{
 
+#ifdef PRESSIO_ENABLE_TPL_PYBIND11
+template <typename vector_t>
+struct SpanExpr<
+  vector_t,
+  ::pressio::mpl::enable_if_t<
+    ::pressio::containers::meta::is_array_pybind11<vector_t>::value
+    >
+  >
+{
+  using this_t = SpanExpr<vector_t>;
+  using sc_t = typename vector_t::value_type;
+  using ord_t = int64_t; //typename mytraits::ordinal_t;
+  // using size_t = typename mytraits::size_t;
+
+  // using ref_t = typename mytraits::reference_t;
+  // using const_ref_t = typename mytraits::const_reference_t;
+
+  // using native_expr_t = typename mytraits::native_expr_t;
+  // using data_return_t = typename mytraits::data_return_t;
+  // using const_data_return_t = typename mytraits::const_data_return_t;
+
+private:
+  vector_t vecObj_;
+  ord_t startIndex_;
+  ord_t extent_ = {};
+  //native_expr_t nativeExprObj_;
+
+public:
+  SpanExpr() = delete;
+  ~SpanExpr() = default;
+  SpanExpr(const SpanExpr & other) = default;
+  SpanExpr(SpanExpr && other) = default;
+  SpanExpr & operator=(const SpanExpr & other) = default;
+  SpanExpr & operator=(SpanExpr && other) = default;
+
+  SpanExpr(vector_t & objIn,
+  	   const ord_t startIndexIn,
+  	   const ord_t extentIn)
+    : vecObj_(objIn), startIndex_(startIndexIn), extent_(extentIn)
+  {
+    // make sure we are passing a vector
+    assert( objIn.ndim() == 1);
+
+    assert( startIndex_ >= 0 and startIndex_ < objIn.size() );
+    assert( extent_ <= objIn.size() );
+  }
+
+  // SpanExpr(vector_t & objIn,
+  // 	   std::pair<ord_t, ord_t> indexRange)
+  //   : vecObj_(objIn),
+  //     startIndex_(std::get<0>(indexRange)),
+  //     extent_(std::get<1>(indexRange)-startIndex_),
+  //     nativeExprObj_(vecObj_.data()->segment(startIndex_, extent_))
+  // {
+  //   assert( startIndex_ >= 0 and startIndex_ < objIn.extent(0) );
+  //   assert( extent_ <= objIn.extent(0) );
+  // }
+
+  size_t extent(size_t i) const{
+    assert(i==0);
+    return extent_;
+  }
+
+  pybind11::array eval(){
+    return vecObj_[pybind11::make_tuple(startIndex_, startIndex_+extent_)];
+  }
+
+  // const_data_return_t dataImpl() const{
+  //   return &nativeExprObj_;
+  // }
+
+  // data_return_t dataImpl(){
+  //   return &nativeExprObj_;
+  // }
+
+  // ref_t operator[](std::size_t i)
+  // {
+  //   assert(i < extent_);
+  //   return nativeExprObj_(i);
+  // }
+
+  // const_ref_t operator[](std::size_t i) const
+  // {
+  //   assert(i < extent_);
+  //   return nativeExprObj_(i);
+  // }
+};
+#endif
+
+
+
+
+
+
+
+
+
 template <typename vector_t>
 struct SpanExpr<
   vector_t,

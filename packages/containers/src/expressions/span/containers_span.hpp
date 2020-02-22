@@ -73,6 +73,18 @@ span(T & vecObj, Args&& ... args)
   return return_t(vecObj, std::forward<Args>(args)... );
 }
 
+#ifdef PRESSIO_ENABLE_TPL_PYBIND11
+template <typename T, typename ... Args>
+mpl::enable_if_t<
+  meta::is_array_pybind11<T>::value and (0 < sizeof...(Args)),
+  expressions::SpanExpr<T>
+  >
+span(T & vecObj, Args&& ... args)
+{
+  using sp_t = expressions::SpanExpr<T>;
+  return sp_t(vecObj, std::forward<Args>(args)... );
+}
+#endif
 
 }} //end namespace pressio::containers
 
