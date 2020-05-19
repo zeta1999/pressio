@@ -218,7 +218,7 @@ public:
 	  scalar_type tmp3 = 4*gogm12_*R_air_*TtL - JiL*JiL;
 	  scalar_type Mi1 = (-tmp2 + std::pow(tmp2*tmp2 - 4*tmp1*tmp3,0.5))/(2*tmp1);
 	  scalar_type Mi2 = (-tmp2 - std::pow(tmp2*tmp2 - 4*tmp1*tmp3,0.5))/(2*tmp1);
-	  scalar_type Mi1 = std::max(Mi1,Mi2);
+	  Mi1 = std::max(Mi1,Mi2);
 	//	printf("Mi: %f\n",Mi1);
 	  scalar_type pL = ptL*std::pow(1 + 0.5 * gm1_ * Mi1*Mi1,-gogm1_);
 	  scalar_type TL = TtL/(1 + 0.5*gm1_*Mi1*Mi1);

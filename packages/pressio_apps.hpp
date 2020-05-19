@@ -75,6 +75,9 @@
 #include "apps/src/burgers1d/arbitraryDataStructures/apps_burgers1d_arb_ds_residual_api_adapter.hpp"
 #include "apps/src/burgers1d/arbitraryDataStructures/apps_burgers1d_arb_ds_velocity_api_adapter.hpp"
 
+// euler1d
+#include "apps/src/euler1d/apps_euler1d_eigen.hpp"
+
 // steady 2d adv-diff
 #include "apps/src/steady_linear_adv_diff2d/apps_steady_linear_adv_diff_2d_epetra.hpp"
 #include "apps/src/steady_linear_adv_diff2d/apps_steady_linear_adv_diff_2d_epetra_rom_adapter.hpp"
