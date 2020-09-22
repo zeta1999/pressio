@@ -41,7 +41,7 @@ jobs:
         docker run -di perrinel/ubuntu-pressio-tpl
         TNAME=$(docker ps --format "{{.Names}}")
         echo $TNAME
-        docker cp -r $TNAME:/home/pressio_builds ${{ env.WORKSPACE_PARENT_DIR }}
+        docker cp $TNAME:/home/pressio_builds ${{ env.WORKSPACE_PARENT_DIR }}
     - name: Run main_pressio script
       env:
         CC: ${{ matrix.config.cc }}
