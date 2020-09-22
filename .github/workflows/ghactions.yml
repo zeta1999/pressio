@@ -38,7 +38,7 @@ jobs:
       run: |
         export TERM=xterm
         echo $TERM
-        docker run -di perrinel/ubuntu-pression-tpl
+        docker run -di perrinel/ubuntu-pressio-tpl
         TNAME=$(docker ps --format "{{.Names}}")
         echo $TNAME
         docker cp -r $TNAME:/home/pressio_builds ${{ env.WORKSPACE_PARENT_DIR }}
