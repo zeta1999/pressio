@@ -12,12 +12,20 @@ jobs:
           - {
               name: "Ubuntu Latest GCC",
               build_type: "Debug", cc: "gcc", cxx: "g++",
-              options: "-eigen-path=/home/runner/work/pressio/pressio_builds/eigen/install -gtest-path=/home/runner/work/pressio/pressio_builds/gtest/install"
+              options: "-eigen-path=/home/runner/work/pressio/pressio_builds/eigen/install -gtest-path=/home/runner/work/pressio/pressio_builds/gtest/install",
+              envscript: ""
             }
           - {
               name: "Ubuntu Latest Clang",
               build_type: "Debug", cc: "clang", cxx: "clang++",
               options: "-eigen-path=/home/runner/work/pressio/pressio_builds/eigen/install -gtest-path=/home/runner/work/pressio/pressio_builds/gtest/install"
+              envscript: ""
+            }
+          - {
+              name: "Ubuntu Latest GCC - trilinos",
+              build_type: "Debug", cc: "gcc", cxx: "g++",
+              options: "-eigen-path=/home/runner/work/pressio/pressio_builds/eigen/install -gtest-path=/home/runner/work/pressio/pressio_builds/gtest/install -trilinos-path=/home/runner/work/pressio/pressio_builds/trilinos/install"
+              envscript: "-env-script=/home/runner/work/pressio/pressio-builder/sample_env_scripts/ubuntu-env-script.sh"
             }
 
     steps:
@@ -44,6 +52,7 @@ jobs:
         TNAME=$(docker ps --format "{{.Names}}")
         echo $TNAME
         docker cp $TNAME:/home/pressio_builds ${{ env.WORKSPACE_PARENT_DIR }}
+        docker cp $TNAME:/home/pressio_repos/pressio-builder/sample_env_scripts/ubuntu-env-script.sh ${{ env.PRESSIO_REPOS }}/pressio-builder/sample_env_scripts/
     - name: Run main_pressio script
       env:
         CC: ${{ matrix.config.cc }}
@@ -51,7 +60,7 @@ jobs:
       run: |
         export TERM=xterm
         cd ${{ env.PRESSIO_REPOS }}/pressio-builder
-        ./main_pressio.sh -dryrun=no -pressio-src=${{ env.WORKSPACE_PARENT_DIR }}/pressio -target-dir=${{ env.PRESSIO_BUILDS }} -cmake-generator-name=default_with_tests ${{ matrix.config.options }}
+        ./main_pressio.sh ${{ matrix.config.envscript }} -dryrun=no -pressio-src=${{ env.WORKSPACE_PARENT_DIR }}/pressio -target-dir=${{ env.PRESSIO_BUILDS }} -cmake-generator-name=default_with_tests ${{ matrix.config.options }}
     - name: Run CTest
       run: |
         cd ${{ env.PRESSIO_BUILDS }}/pressio/build
