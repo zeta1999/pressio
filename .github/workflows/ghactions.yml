@@ -42,6 +42,7 @@ jobs:
         echo ::set-env name=PRESSIO_REPOS::$PARENT_DIR/pressio_repos
         echo ::set-env name=PRESSIO_BUILDS::$PARENT_DIR/pressio_builds
         ${{ matrix.config.requirements }}
+        which mpicc 
     - name: Cloning Pressio Builder...
       run: |
         cd ${{ env.PRESSIO_REPOS }}
