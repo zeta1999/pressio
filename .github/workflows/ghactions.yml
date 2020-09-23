@@ -12,12 +12,12 @@ jobs:
           - {
               name: "Ubuntu Latest GCC",
               build_type: "Debug", cc: "gcc", cxx: "g++",
-              options: "-eigen-path=${{ env.PRESSIO_BUILDS }}/eigen/install -gtest-path=${{ env.PRESSIO_BUILDS }}/gtest/install"
+              options: "-eigen-path=/home/runner/work/pressio/pressio_builds/eigen/install -gtest-path=/home/runner/work/pressio/pressio_builds/gtest/install"
             }
           - {
               name: "Ubuntu Latest Clang",
               build_type: "Debug", cc: "clang", cxx: "clang++",
-              options: "-eigen-path=${{ env.PRESSIO_BUILDS }}/eigen/install -gtest-path=${{ env.PRESSIO_BUILDS }}/gtest/install"
+              options: "-eigen-path=/home/runner/work/pressio/pressio_builds/eigen/install -gtest-path=/home/runner/work/pressio/pressio_builds/gtest/install"
             }
 
     steps:
