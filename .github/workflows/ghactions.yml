@@ -28,7 +28,7 @@ jobs:
               build_type: "Debug", cc: "gcc", cxx: "g++",
               options: "-eigen-path=/home/runner/work/pressio/pressio_builds/eigen/install -gtest-path=/home/runner/work/pressio/pressio_builds/gtest/install -trilinos-path=/home/runner/work/pressio/pressio_builds/trilinos/install",
               envscript: "-env-script=/home/runner/work/pressio/pressio_repos/pressio-builder/sample_env_scripts/ubuntu-env-script.sh",
-              requirements: "apt install -y openmpi-bin"
+              requirements: "sudo apt install -y openmpi-bin"
             }
 
     steps:
