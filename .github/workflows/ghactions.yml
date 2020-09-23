@@ -28,7 +28,7 @@ jobs:
               build_type: "Debug", cc: "gcc", cxx: "g++",
               options: "-eigen-path=/home/runner/work/pressio/pressio_builds/eigen/install -gtest-path=/home/runner/work/pressio/pressio_builds/gtest/install -trilinos-path=/home/runner/work/pressio/pressio_builds/trilinos/install",
               envscript: "-env-script=/home/runner/work/pressio/pressio_repos/pressio-builder/sample_env_scripts/ubuntu-env-script.sh",
-              requirements: "sudo apt install -y openmpi-bin"
+              requirements: "sudo apt install -y openmpi-bin; which mpicc"
             }
 
     steps:
@@ -42,7 +42,6 @@ jobs:
         echo ::set-env name=PRESSIO_REPOS::$PARENT_DIR/pressio_repos
         echo ::set-env name=PRESSIO_BUILDS::$PARENT_DIR/pressio_builds
         ${{ matrix.config.requirements }}
-        which mpicc 
     - name: Cloning Pressio Builder...
       run: |
         cd ${{ env.PRESSIO_REPOS }}
