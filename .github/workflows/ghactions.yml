@@ -13,21 +13,21 @@ jobs:
               name: "Ubuntu Latest GCC",
               build_type: "Debug", cc: "gcc", cxx: "g++",
               options: "-eigen-path=/home/runner/work/pressio/pressio_builds/eigen/install -gtest-path=/home/runner/work/pressio/pressio_builds/gtest/install",
-              envscript: ""
+              envscript: "",
               requirements: ""
             }
           - {
               name: "Ubuntu Latest Clang",
               build_type: "Debug", cc: "clang", cxx: "clang++",
               options: "-eigen-path=/home/runner/work/pressio/pressio_builds/eigen/install -gtest-path=/home/runner/work/pressio/pressio_builds/gtest/install",
-              envscript: ""
+              envscript: "",
               requirements: ""
             }
           - {
               name: "Ubuntu Latest GCC - trilinos",
               build_type: "Debug", cc: "gcc", cxx: "g++",
               options: "-eigen-path=/home/runner/work/pressio/pressio_builds/eigen/install -gtest-path=/home/runner/work/pressio/pressio_builds/gtest/install -trilinos-path=/home/runner/work/pressio/pressio_builds/trilinos/install",
-              envscript: "-env-script=/home/runner/work/pressio/pressio_repos/pressio-builder/sample_env_scripts/ubuntu-env-script.sh"
+              envscript: "-env-script=/home/runner/work/pressio/pressio_repos/pressio-builder/sample_env_scripts/ubuntu-env-script.sh",
               requirements: "apt install -y openmpi-bin"
             }
 
