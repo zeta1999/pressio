@@ -11,12 +11,12 @@ jobs:
           config:
           - {
               name: "Ubuntu Latest GCC",
-              build_type: "Debug", cc: "gcc", cxx: "g++"
+              build_type: "Debug", cc: "gcc", cxx: "g++",
               options: "-eigen-path=${{ env.PRESSIO_BUILDS }}/eigen/install -gtest-path=${{ env.PRESSIO_BUILDS }}/gtest/install"
             }
           - {
               name: "Ubuntu Latest Clang",
-              build_type: "Debug", cc: "clang", cxx: "clang++"
+              build_type: "Debug", cc: "clang", cxx: "clang++",
               options: "-eigen-path=${{ env.PRESSIO_BUILDS }}/eigen/install -gtest-path=${{ env.PRESSIO_BUILDS }}/gtest/install"
             }
 
