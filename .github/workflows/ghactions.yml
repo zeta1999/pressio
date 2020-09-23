@@ -12,10 +12,12 @@ jobs:
           - {
               name: "Ubuntu Latest GCC",
               build_type: "Debug", cc: "gcc", cxx: "g++"
+              options: "-eigen-path=${{ env.PRESSIO_BUILDS }}/eigen/install -gtest-path=${{ env.PRESSIO_BUILDS }}/gtest/install"
             }
           - {
               name: "Ubuntu Latest Clang",
               build_type: "Debug", cc: "clang", cxx: "clang++"
+              options: "-eigen-path=${{ env.PRESSIO_BUILDS }}/eigen/install -gtest-path=${{ env.PRESSIO_BUILDS }}/gtest/install"
             }
 
     steps:
@@ -49,7 +51,7 @@ jobs:
       run: |
         export TERM=xterm
         cd ${{ env.PRESSIO_REPOS }}/pressio-builder
-        ./main_pressio.sh -dryrun=no -pressio-src=${{ env.WORKSPACE_PARENT_DIR }}/pressio -target-dir=${{ env.PRESSIO_BUILDS }} -cmake-generator-name=default_with_tests -eigen-path=${{ env.PRESSIO_BUILDS }}/eigen/install -gtest-path=${{ env.PRESSIO_BUILDS }}/gtest/install
+        ./main_pressio.sh -dryrun=no -pressio-src=${{ env.WORKSPACE_PARENT_DIR }}/pressio -target-dir=${{ env.PRESSIO_BUILDS }} -cmake-generator-name=default_with_tests ${{ matrix.config.options }}
     - name: Run CTest
       run: |
         cd ${{ env.PRESSIO_BUILDS }}/pressio/build
