@@ -9,23 +9,23 @@ jobs:
     strategy:
       matrix:
           config:
+#           - {
+#               name: "Ubuntu Latest GCC",
+#               build_type: "Debug", cc: "gcc", cxx: "g++",
+#               options: "-eigen-path=/home/runner/work/pressio/pressio_builds/eigen/install -gtest-path=/home/runner/work/pressio/pressio_builds/gtest/install",
+#               envscript: "",
+#               requirements: ""
+#             }
+#           - {
+#               name: "Ubuntu Latest Clang",
+#               build_type: "Debug", cc: "clang", cxx: "clang++",
+#               options: "-eigen-path=/home/runner/work/pressio/pressio_builds/eigen/install -gtest-path=/home/runner/work/pressio/pressio_builds/gtest/install",
+#               envscript: "",
+#               requirements: ""
+#             }
           - {
-              name: "Ubuntu Latest GCC",
-              build_type: "Debug", cc: "gcc", cxx: "g++",
-              options: "-eigen-path=/home/runner/work/pressio/pressio_builds/eigen/install -gtest-path=/home/runner/work/pressio/pressio_builds/gtest/install",
-              envscript: "",
-              requirements: ""
-            }
-          - {
-              name: "Ubuntu Latest Clang",
-              build_type: "Debug", cc: "clang", cxx: "clang++",
-              options: "-eigen-path=/home/runner/work/pressio/pressio_builds/eigen/install -gtest-path=/home/runner/work/pressio/pressio_builds/gtest/install",
-              envscript: "",
-              requirements: ""
-            }
-          - {
-              name: "Ubuntu Latest GCC - trilinos",
-              build_type: "Debug", cc: "gcc", cxx: "g++",
+              name: "Ubuntu Latest MPI - trilinos",
+              build_type: "Debug", cc: "mpicc", cxx: "mpicxx",
               options: "-cmake-generator-name=default_mpi_trilinos_with_tests -eigen-path=/home/runner/work/pressio/pressio_builds/eigen/install -gtest-path=/home/runner/work/pressio/pressio_builds/gtest/install -trilinos-path=/home/runner/work/pressio/pressio_builds/trilinos/install",
               envscript: "-env-script=/home/runner/work/pressio/pressio_repos/pressio-builder/sample_env_scripts/ubuntu-env-script.sh",
               requirements: "sudo apt install -y openmpi-bin libopenmpi-dev"
@@ -42,6 +42,7 @@ jobs:
         echo ::set-env name=PRESSIO_REPOS::$PARENT_DIR/pressio_repos
         echo ::set-env name=PRESSIO_BUILDS::$PARENT_DIR/pressio_builds
         ${{ matrix.config.requirements }}
+        ls /usr/lib/x86_64-linux-gnu/libmpi*
     - name: Cloning Pressio Builder...
       run: |
         cd ${{ env.PRESSIO_REPOS }}
