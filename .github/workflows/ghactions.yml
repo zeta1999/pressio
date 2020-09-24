@@ -43,6 +43,9 @@ jobs:
         echo ::set-env name=PRESSIO_BUILDS::$PARENT_DIR/pressio_builds
         ${{ matrix.config.requirements }}
         ls /usr/lib/x86_64-linux-gnu/libmpi*
+        gcc --version
+        mpic++ -showme:version
+        whereis libmpi.so
     - name: Cloning Pressio Builder...
       run: |
         cd ${{ env.PRESSIO_REPOS }}
