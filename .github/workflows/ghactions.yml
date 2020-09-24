@@ -68,6 +68,7 @@ jobs:
       run: |
         export TERM=xterm
         cd ${{ env.PRESSIO_REPOS }}/pressio-builder
+        export LD_LIBRARY_PATH="${{ env.PRESSIO_BUILDS }}/trilinos/install/lib"
         ./main_pressio.sh ${{ matrix.config.envscript }} -dryrun=no -pressio-src=${{ env.WORKSPACE_PARENT_DIR }}/pressio -target-dir=${{ env.PRESSIO_BUILDS }} -cmake-generator-name=default_with_tests ${{ matrix.config.options }}
     - name: Run CTest
       run: |
