@@ -73,5 +73,7 @@ jobs:
     - name: Run CTest
       run: |
         cd ${{ env.PRESSIO_BUILDS }}/pressio/build
+        ls /etc/openmpi/
+        sed -i -e '$alocalhost slots=4' /etc/openmpi/openmpi-default-hostfile
         export LD_LIBRARY_PATH=${{ env.PRESSIO_BUILDS }}/trilinos/install/lib
         ctest -V
